@@ -72,6 +72,80 @@ export function useMonsoonAnimations(scope){
                     }),
         })
 
+        gsap.to('.gauge-fill', {
+            scaleY:1,
+            ease:'none',
+            scrollTrigger:{
+                trigger:'.app',
+                start:'top top',
+                end:'bottom bottom',
+                scrub:true,
+            },
+        })
+
+        gsap.to('.hero-title', {
+            yPercent:35,
+            scale:0.9,
+            ease:'none',
+            scrollTrigger: {
+                trigger:'.hero',
+                start:'top top',
+                end:'bottom top',
+                scrub: true,
+            },
+        })
+
+        const windowScroll = {
+            trigger:'.window-scene',
+            start:'top bottom',
+            end:'top top',
+            scrub:1,
+        }
+
+        gsap.to('.window', {
+            '--sky-top': '#8a979c',
+            '--sky-bottom': '#3e4b53',
+            '--cloud': '#6b777d',
+            ease:'none',
+            scrollTrigger: {...windowScroll, markers: DEBUG},
+        })
+
+        gsap.to('.sun', {
+            yPercent:140,
+            opacity:0.15,
+            ease:'none',
+            scrollTrigger:{...windowScroll},
+        })
+
+        gsap.from('.cloud-1', {
+            xPercent:-90,
+            ease:'none',
+            scrollTrigger:{...windowScroll},
+        })
+
+        gsap.from('.cloud-2', {
+            xPercent:90,
+            ease:'none',
+            scrollTrigger:{...windowScroll},
+        })
+        gsap.from('.cloud-3', {
+            yPercent:-200,
+            opacity:0,
+            ease:'none',
+            scrollTrigger: {...windowScroll},
+        })
+
+        gsap.to('.rain', {
+            opacity:1,
+            ease:'none',
+            scrollTrigger:{
+                trigger:'.window-scene',
+                start:'top 25%',
+                end :'top top',
+                scrub:1,
+            },
+        })
+
         gsap.from ('.outro > *', {
             y:40,
             opacity:0,
