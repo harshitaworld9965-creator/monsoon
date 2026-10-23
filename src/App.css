@@ -1,184 +1,351 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
-
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+.app {
+  position: relative;
 }
 
+/* ---------- Rain gauge (progress bar) ---------- */
+.gauge {
+  position: fixed;
+  top: 50%;
+  right: clamp(0.75rem, 2vw, 1.5rem);
+  translate: 0 -50%;
+  width: 6px;
+  height: 40vh;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+  z-index: 50;
+}
+
+.gauge-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--teal), var(--rain));
+  transform-origin: bottom;
+  transform: scaleY(0);
+}
+
+/* ---------- 1. Hero ---------- */
 .hero {
   position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
-}
-
-#center {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
+  min-height: 100svh;
+  display: grid;
   place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
+  gap: 1.5rem;
+  padding: var(--pad);
+  text-align: center;
 }
 
-#next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
+.hero-title {
+  font-size: clamp(5rem, 22vw, 18rem);
+  font-style: italic;
+  line-height: 0.85;
 }
 
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
+.hero-sub {
+  max-width: 32ch;
+  margin-inline: auto;
+  font-size: clamp(1.1rem, 1rem + 0.6vw, 1.5rem);
+  color: var(--ink-soft);
 }
 
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
+.hero-hint {
+  position: absolute;
+  bottom: var(--pad);
+  left: 50%;
+  translate: -50% 0;
 }
 
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
+/* ---------- Shared section heading ---------- */
+.section-head {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: clamp(2.5rem, 6vw, 5rem);
 }
 
-.ticks {
+.section-title {
+  max-width: 14ch;
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+}
+
+/* ---------- 2. Signs ---------- */
+.signs {
+  padding: clamp(5rem, 12vw, 10rem) var(--pad);
+}
+
+.sign-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  column-gap: 2rem;
+  border-top: 1px solid var(--line);
+}
+
+.sign {
+  display: grid;
+  gap: 0.6rem;
+  padding: 2rem 0 2.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.sign-title {
+  font-size: clamp(1.6rem, 1.2rem + 1.5vw, 2.2rem);
+}
+
+.sign-text {
+  max-width: 30ch;
+  color: var(--ink-soft);
+}
+
+/* ---------- 3. The window ---------- */
+.window-scene {
+  display: grid;
+  gap: 3rem;
+  padding: clamp(3rem, 8vw, 6rem) var(--pad);
+}
+
+.window {
+  --wood: #6e4b33;
   position: relative;
-  width: 100%;
+  width: min(100%, 28rem);
+  aspect-ratio: 3 / 4;
+  max-height: 80svh;
+  margin-inline: auto;
+  border: 14px solid var(--wood);
+  border-radius: 999px 999px 8px 8px;
+  overflow: hidden;
+  box-shadow: 0 40px 80px -30px rgba(43, 38, 32, 0.45);
+}
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
+.sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, var(--sky-top), var(--sky-bottom));
+  overflow: hidden;
+}
+
+.sun {
+  position: absolute;
+  top: 16%;
+  left: 50%;
+  translate: -50% 0;
+  width: 40%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    #fff8dc 0%,
+    #ffd66b 40%,
+    rgba(255, 214, 107, 0) 70%
+  );
+}
+
+/* Clouds: a pill with two round bumps on top */
+.cloud {
+  position: absolute;
+  height: 12%;
+  background: var(--cloud);
+  border-radius: 999px;
+}
+
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+}
+
+.cloud::before {
+  width: 45%;
+  aspect-ratio: 1;
+  left: 15%;
+  bottom: 35%;
+}
+
+.cloud::after {
+  width: 32%;
+  aspect-ratio: 1;
+  right: 18%;
+  bottom: 30%;
+}
+
+.cloud-1 { width: 70%; top: 22%; left: -10%; }
+.cloud-2 { width: 60%; top: 36%; right: -15%; }
+.cloud-3 { width: 55%; top: 10%; left: 30%; }
+
+/* Rain: hidden until the storm (GSAP fades it in) */
+.rain {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.drop {
+  position: absolute;
+  top: -15%;
+  left: calc(var(--i) * 2.5% + 1%);
+  width: 1.5px;
+  height: 10%;
+  border-radius: 999px;
+  background: linear-gradient(to bottom, transparent, var(--rain));
+}
+
+.drop:nth-child(3n) { height: 7%; }
+.drop:nth-child(4n) { opacity: 0.6; }
+
+/* The wooden cross bars, drawn with two gradients */
+.window-bars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--wood), var(--wood)) center / 10px 100% no-repeat,
+    linear-gradient(var(--wood), var(--wood)) center 58% / 100% 10px no-repeat;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.18);
+}
+
+.moments {
+  display: grid;
+}
+
+.moment {
+  min-height: 55svh;
+  display: grid;
+  align-content: center;
+  gap: 0.75rem;
+  max-width: 28rem;
+}
+
+.moment-name {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.moment-text {
+  color: var(--ink-soft);
+}
+
+@media (min-width: 900px) {
+  .window-scene {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
   }
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
+  .moment {
+    min-height: 80svh;
   }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
+}
+
+/* ---------- 4. The street (after the rain) ---------- */
+.street {
+  padding-block: clamp(5rem, 12vw, 10rem);
+  background: var(--slate);
+  color: var(--rain);
+}
+
+.street .section-head {
+  padding-inline: var(--pad);
+}
+
+.street .label {
+  color: rgba(207, 221, 224, 0.6);
+}
+
+.street-track {
+  display: flex;
+  gap: clamp(1rem, 3vw, 2rem);
+  width: max-content;
+  padding-inline: var(--pad);
+}
+
+.stall {
+  flex-shrink: 0;
+  width: clamp(16rem, 32vw, 26rem);
+  display: grid;
+  gap: 1.25rem;
+}
+
+.stall-art {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  display: grid;
+  place-items: center;
+  border-radius: 1.25rem;
+  overflow: hidden;
+}
+
+/* Thin diagonal rain streaks over each card */
+.stall-art::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    105deg,
+    transparent 0 18px,
+    rgba(255, 255, 255, 0.08) 18px 19px
+  );
+}
+
+.stall:nth-child(1) .stall-art { background: var(--teal); }
+.stall:nth-child(2) .stall-art { background: var(--accent); }
+.stall:nth-child(3) .stall-art { background: #4c5d4a; }
+.stall:nth-child(4) .stall-art { background: #8b5a3c; }
+.stall:nth-child(5) .stall-art { background: #556b78; }
+.stall:nth-child(6) .stall-art { background: #a4473a; }
+
+.stall-hindi {
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  color: var(--bg);
+}
+
+.stall-name {
+  font-size: clamp(1.6rem, 1.2rem + 1.2vw, 2rem);
+}
+
+.stall-text {
+  max-width: 28ch;
+  color: rgba(207, 221, 224, 0.7);
+}
+
+/* ---------- 5. Outro ---------- */
+.outro {
+  min-height: 100svh;
+  display: grid;
+  place-content: center;
+  gap: 2rem;
+  padding: var(--pad);
+  text-align: center;
+  background: var(--slate);
+  color: var(--rain);
+}
+
+.outro .label {
+  color: rgba(207, 221, 224, 0.6);
+}
+
+.outro-line {
+  max-width: 20ch;
+  margin-inline: auto;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-style: italic;
+}
+
+/* ---------- Cursor ripple ---------- */
+.ripple {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 3rem;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border: 1.5px solid #fff;
+  border-radius: 50%;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0;
+}
+
+@media (hover: none) {
+  .ripple {
+    display: none;
   }
 }

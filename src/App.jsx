@@ -75,7 +75,7 @@ function App() {
             <div className="cloud cloud-3"></div>
             <div className="rain">
               {drops.map((_, i) => (
-                <span className="drop" key={i}></span>
+                <span className="drop" key={i} style={{'--i': i}}></span>
               ))}
             </div>
           </div>
