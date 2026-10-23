@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import './App.css'
+import { useMonsoonAnimations } from './useMonsoonAnimations'
 
 const signs = [
   { title: 'The air goes still', text: 'Not a leaf moves. Even the ceiling fan sounds tired.' },
@@ -30,6 +31,7 @@ const drops = Array.from({ length: 40 })
 
 function App() {
   const appRef = useRef(null)
+  useMonsoonAnimations(appRef)
 
   return (
     <main className="app" ref={appRef}>
